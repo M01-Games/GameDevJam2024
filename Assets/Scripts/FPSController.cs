@@ -30,12 +30,25 @@ public class FPSController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        bool isGrounded = controller.isGrounded;
+
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
 
         float curSpeedX = canMove ? walkSpeed * Input.GetAxis("Vertical") : 0;
         float curSpeedY = canMove ? walkSpeed * Input.GetAxis("Horizontal") : 0;
-        moveDirection = (forward * curSpeedX) + (right * curSpeedY);
+
+        if (isGrounded)
+        {
+            moveDirection = (forward * curSpeedX) + (right * curSpeedY);
+
+            if (canMove && Input.GetButton("Jump"))
+            {
+                moveDirection.y = jumpPower;
+            }
+        }
+
+        moveDirection.y -= gravity * Time.deltaTime;
 
         controller.Move(moveDirection * Time.deltaTime);
 
