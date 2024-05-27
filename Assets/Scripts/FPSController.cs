@@ -8,7 +8,6 @@ public class FPSController : MonoBehaviour
     public Camera playerCamera;
     public float walkSpeed = 6f;
     public float runSpeed = 10f;
-    public float jumpPower = 7f;
     public float gravity = 10f;
 
     public float sensitivity = 2f;
@@ -54,11 +53,6 @@ public class FPSController : MonoBehaviour
         if (isGrounded)
         {
             moveDirection = (forward * curSpeedX) + (right * curSpeedY);
-
-            if (canMove && Input.GetButton("Jump"))
-            {
-                moveDirection.y = jumpPower;
-            }
         }
 
         moveDirection.y -= gravity * Time.deltaTime;
