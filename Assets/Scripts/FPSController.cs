@@ -8,6 +8,7 @@ public class FPSController : MonoBehaviour
     public Camera playerCamera;
     public float walkSpeed = 6f;
     public float runSpeed = 10f;
+    public float crouchSpeed = 2f;
     public float gravity = 10f;
 
     public float sensitivity = 2f;
@@ -16,6 +17,10 @@ public class FPSController : MonoBehaviour
     public float sprintFOV = 80f;
     private float normalFOV;
     public float fovTransitionSpeed = 10f;
+
+    public float crouchHeight = 1f;
+    private float normalHeight;
+    private bool isCrouching = false;
 
     float rotationX = 0f;
     public bool canMove = true;
@@ -30,23 +35,25 @@ public class FPSController : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         normalFOV = playerCamera.fieldOfView;
+        normalHeight = controller.height;
     }
 
     void Update()
     {
         HandleMovement();
         HandleMouseLook();
+        HandleCrouch();
     }
 
     private void HandleMovement()
     {
         bool isGrounded = controller.isGrounded;
-        bool isRunning = Input.GetKey(KeyCode.LeftShift);
+        bool isRunning = Input.GetKey(KeyCode.LeftShift) && !isCrouching;
 
         Vector3 forward = transform.TransformDirection(Vector3.forward);
         Vector3 right = transform.TransformDirection(Vector3.right);
 
-        float speed = isRunning ? runSpeed : walkSpeed;
+        float speed = isCrouching ? crouchSpeed : (isRunning ? runSpeed : walkSpeed);
         float curSpeedX = canMove ? speed * Input.GetAxis("Vertical") : 0;
         float curSpeedY = canMove ? speed * Input.GetAxis("Horizontal") : 0;
 
@@ -69,6 +76,15 @@ public class FPSController : MonoBehaviour
             rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
             playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
             transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * sensitivity, 0);
+        }
+    }
+
+    private void HandleCrouch()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            isCrouching = !isCrouching;
+            controller.height = isCrouching ? normalHeight - crouchHeight : normalHeight;
         }
     }
 
