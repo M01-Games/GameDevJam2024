@@ -48,7 +48,8 @@ public class FPSController : MonoBehaviour
         }
         else
         {
-            moveDirection.y = 0;
+            // Explicitly stop all movement
+            moveDirection = Vector3.zero;
             controller.Move(moveDirection * Time.deltaTime);
         }
     }
@@ -62,18 +63,15 @@ public class FPSController : MonoBehaviour
         Vector3 right = transform.TransformDirection(Vector3.right);
 
         float speed = isCrouching ? crouchSpeed : (isRunning ? runSpeed : walkSpeed);
-        float curSpeedX = canMove ? speed * Input.GetAxis("Vertical") : 0;
-        float curSpeedY = canMove ? speed * Input.GetAxis("Horizontal") : 0;
+        float curSpeedX = speed * Input.GetAxis("Vertical");
+        float curSpeedY = speed * Input.GetAxis("Horizontal");
 
         if (isGrounded)
         {
             moveDirection = (forward * curSpeedX) + (right * curSpeedY);
         }
 
-        if (canMove)
-        {
-            moveDirection.y -= gravity * Time.deltaTime;
-        }
+        moveDirection.y -= gravity * Time.deltaTime;
         controller.Move(moveDirection * Time.deltaTime);
 
         UpdateCameraFOV(isRunning, curSpeedX, curSpeedY);
@@ -81,13 +79,10 @@ public class FPSController : MonoBehaviour
 
     private void HandleMouseLook()
     {
-        if (canMove)
-        {
-            rotationX += -Input.GetAxis("Mouse Y") * sensitivity;
-            rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
-            playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
-            transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * sensitivity, 0);
-        }
+        rotationX += -Input.GetAxis("Mouse Y") * sensitivity;
+        rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
+        playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
+        transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * sensitivity, 0);
     }
 
     private void HandleCrouch()

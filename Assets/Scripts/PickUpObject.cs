@@ -47,7 +47,6 @@ public class PickupObject : MonoBehaviour, IInteractable
         isPickedUp = true;
         rb.isKinematic = true;
 
-        // Create a new GameObject to act as the hold point
         holdParent = new GameObject("HoldPoint").transform;
         holdParent.SetParent(playerTransform);
         holdParent.localPosition = holdOffset;
