@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PickupObject : MonoBehaviour, IInteractable
 {
-    private bool isPickedUp = false;
-    private bool isInspecting = false;
+    public bool isPickedUp = false;
+    public bool isInspecting = false;
     private Transform playerTransform;
     private Vector3 originalPosition;
     private Quaternion originalRotation;
