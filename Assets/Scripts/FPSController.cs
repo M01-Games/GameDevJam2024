@@ -40,9 +40,17 @@ public class FPSController : MonoBehaviour
 
     void Update()
     {
-        HandleMovement();
-        HandleMouseLook();
-        HandleCrouch();
+        if (canMove)
+        {
+            HandleMovement();
+            HandleMouseLook();
+            HandleCrouch();
+        }
+        else
+        {
+            moveDirection.y = 0;
+            controller.Move(moveDirection * Time.deltaTime);
+        }
     }
 
     private void HandleMovement()
@@ -62,7 +70,10 @@ public class FPSController : MonoBehaviour
             moveDirection = (forward * curSpeedX) + (right * curSpeedY);
         }
 
-        moveDirection.y -= gravity * Time.deltaTime;
+        if (canMove)
+        {
+            moveDirection.y -= gravity * Time.deltaTime;
+        }
         controller.Move(moveDirection * Time.deltaTime);
 
         UpdateCameraFOV(isRunning, curSpeedX, curSpeedY);
@@ -81,7 +92,7 @@ public class FPSController : MonoBehaviour
 
     private void HandleCrouch()
     {
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C) && canMove)
         {
             isCrouching = !isCrouching;
             controller.height = isCrouching ? normalHeight - crouchHeight : normalHeight;
