@@ -80,7 +80,7 @@ public class PickupObject : MonoBehaviour, IInteractable
     {
         if (isPickedUp)
         {
-            if (Input.GetKeyDown(KeyCode.E) && !isKey)
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 Drop();
             }
