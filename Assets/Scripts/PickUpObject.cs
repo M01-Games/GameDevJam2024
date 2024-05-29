@@ -19,6 +19,7 @@ public class PickupObject : MonoBehaviour, IInteractable
     private FPSController fpsController;
 
     public float rotationSpeed = 500f;
+    public bool isKey = false; // Indicates whether this object is a key
 
     void Start()
     {
@@ -57,7 +58,7 @@ public class PickupObject : MonoBehaviour, IInteractable
         transform.localRotation = Quaternion.identity;
     }
 
-    void Drop()
+    public void Drop()
     {
         isPickedUp = false;
         isInspecting = false;
@@ -79,7 +80,7 @@ public class PickupObject : MonoBehaviour, IInteractable
     {
         if (isPickedUp)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E) && !isKey)
             {
                 Drop();
             }

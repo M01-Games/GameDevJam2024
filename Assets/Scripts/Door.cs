@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 public class Door : MonoBehaviour
 {
     public bool isOpen = false;
+    public bool isLocked = false; // New property to determine if the door is locked
     [SerializeField]
     private bool isRotatingDoor = true;
     [SerializeField]
@@ -30,12 +30,18 @@ public class Door : MonoBehaviour
     {
         if (!isOpen)
         {
+            if (isLocked)
+            {
+                Debug.Log("Door is locked.");
+                return;
+            }
+
             if (animationCoroutine != null)
             {
                 StopCoroutine(animationCoroutine);
             }
 
-            if (isRotatingDoor) 
+            if (isRotatingDoor)
             {
                 float dot = Vector3.Dot(Forward, (userPosition - transform.position).normalized);
                 animationCoroutine = StartCoroutine(DoRotationOpen(dot));
@@ -60,7 +66,7 @@ public class Door : MonoBehaviour
         isOpen = true;
 
         float time = 0.0f;
-        while (time<1)
+        while (time < 1)
         {
             transform.rotation = Quaternion.Slerp(start, end, time);
             yield return null;
@@ -92,7 +98,7 @@ public class Door : MonoBehaviour
         isOpen = false;
 
         float time = 0.0f;
-        while (time<1)
+        while (time < 1)
         {
             transform.rotation = Quaternion.Slerp(start, end, time);
             yield return null;
@@ -100,15 +106,17 @@ public class Door : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void Unlock()
     {
-        
+        isLocked = false;
+        Debug.Log("Door unlocked.");
     }
 
-    // Update is called once per frame
+    void Start()
+    {
+    }
+
     void Update()
     {
-        
     }
 }

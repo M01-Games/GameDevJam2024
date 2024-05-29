@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using TMPro;
 using UnityEngine;
+using TMPro;
 
 public class PlayerActions : MonoBehaviour
 {
@@ -15,12 +14,29 @@ public class PlayerActions : MonoBehaviour
     [SerializeField]
     private LayerMask useLayers;
 
+    private PickupObject heldKey = null; // Store the currently held key
+
     public void OnUse()
     {
         if (Physics.Raycast(camera.position, camera.forward, out RaycastHit hit, maxUseDistance, useLayers))
         {
             if (hit.collider.TryGetComponent<Door>(out Door door))
             {
+                if (door.isLocked)
+                {
+                    if (heldKey != null && heldKey.isKey)
+                    {
+                        door.Unlock();
+                        Destroy(heldKey.gameObject);
+                        heldKey = null;
+                    }
+                    else
+                    {
+                        Debug.Log("Door is locked and you don't have a key.");
+                        return;
+                    }
+                }
+
                 if (door.isOpen)
                 {
                     Debug.Log("Door closing");
@@ -39,26 +55,35 @@ public class PlayerActions : MonoBehaviour
 
     private void Update()
     {
-        if (Physics.Raycast(camera.position, camera.forward, out RaycastHit hit, maxUseDistance, useLayers)
-            && hit.collider.TryGetComponent<Door>(out Door door))
+        if (Physics.Raycast(camera.position, camera.forward, out RaycastHit hit, maxUseDistance, useLayers))
         {
-            if (door.isOpen)
-                useText.SetText("Close \"E\"");
-            else
-                useText.SetText("Open \"E\"");
-
-            useText.gameObject.SetActive(true);
-            Vector3 directionToCamera = (camera.position - hit.point).normalized;
-            Vector3 textPosition = hit.point + directionToCamera * 1f;
-            useText.transform.position = textPosition;
-            useText.transform.rotation = Quaternion.LookRotation(-directionToCamera);
-
-            if (Input.GetKeyDown(KeyCode.E))
+            if (hit.collider.TryGetComponent<Door>(out Door door))
             {
-                OnUse();
+                useText.SetText(door.isLocked ? "Door is locked" : door.isOpen ? "Close \"E\"" : "Open \"E\"");
+                useText.gameObject.SetActive(true);
+                Vector3 directionToCamera = (camera.position - hit.point).normalized;
+                Vector3 textPosition = hit.point + directionToCamera * 1f;
+                useText.transform.position = textPosition;
+                useText.transform.rotation = Quaternion.LookRotation(-directionToCamera);
+
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    OnUse();
+                }
+            }
+            else
+            {
+                useText.gameObject.SetActive(false);
             }
         }
         else
+        {
             useText.gameObject.SetActive(false);
+        }
+    }
+
+    public void SetHeldKey(PickupObject key)
+    {
+        heldKey = key;
     }
 }

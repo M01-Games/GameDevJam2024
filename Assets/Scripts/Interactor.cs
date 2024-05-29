@@ -4,21 +4,24 @@ using UnityEngine;
 
 interface IInteractable
 {
-    public void Interact();
+    void Interact();
 }
 
 public class Interactor : MonoBehaviour
 {
     public Transform interactorSource;
     public float interactRange;
+    private PlayerActions playerActions;
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+        playerActions = GetComponentInParent<PlayerActions>();
+        if (playerActions == null)
+        {
+            Debug.LogError("PlayerActions component not found in parent.");
+        }
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
@@ -29,6 +32,10 @@ public class Interactor : MonoBehaviour
                 if (hitInfo.collider.gameObject.TryGetComponent(out IInteractable interactObj))
                 {
                     interactObj.Interact();
+                    if (hitInfo.collider.gameObject.TryGetComponent<PickupObject>(out PickupObject pickupObject) && pickupObject.isKey)
+                    {
+                        playerActions.SetHeldKey(pickupObject);
+                    }
                 }
             }
         }
