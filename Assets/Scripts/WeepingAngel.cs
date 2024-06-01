@@ -2,19 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 public class WeepingAngel : MonoBehaviour
 {
     public NavMeshAgent ai;
+    public GameObject playerObj;
     public Transform player;
     Vector3 dest;
-    public Camera playerCamera;
-    public float aiSpeed;
+    public Camera playerCamera, jumpscareCamera;
+    public float aiSpeed, catchDistance, scareDistance, jumpscareTime;
     public bool canChasePlayer;
     public Transform neck;
     private Animator animator;
     private bool initialAnimatorEnabled = true;
     public GameObject pickupItem;
+    public string sceneAfterDeath;
 
     private void Start()
     {
@@ -37,6 +40,7 @@ public class WeepingAngel : MonoBehaviour
 
         if (canChasePlayer)
         {
+            animator.enabled = true;
             Plane[] planes = GeometryUtility.CalculateFrustumPlanes(playerCamera);
 
             if (GeometryUtility.TestPlanesAABB(planes, this.gameObject.GetComponent<Renderer>().bounds))
@@ -48,7 +52,7 @@ public class WeepingAngel : MonoBehaviour
             {
                 float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-                if (distanceToPlayer > 1)
+                if (distanceToPlayer > catchDistance)
                 {
                     ai.speed = aiSpeed;
                     dest = player.position;
@@ -60,10 +64,12 @@ public class WeepingAngel : MonoBehaviour
 
                     neck.rotation = Quaternion.Slerp(neck.rotation, lookRotation, Time.deltaTime * aiSpeed);
                 }
-                else
+                if (distanceToPlayer <= catchDistance)
                 {
-                    ai.speed = 0;
-                    ai.SetDestination(transform.position);
+                    animator.SetBool("Scare", true);
+                    playerObj.SetActive(false);
+                    jumpscareCamera.gameObject.SetActive(true);
+                    StartCoroutine(killPlayer());
                 }
             }
         }
@@ -103,5 +109,12 @@ public class WeepingAngel : MonoBehaviour
             yield return new WaitForSeconds(duration);
             initialAnimatorEnabled = false;
         }
+    }
+
+    IEnumerator killPlayer()
+    {
+        animator.SetBool("Scare", true);
+        yield return new WaitForSeconds(jumpscareTime);
+        SceneManager.LoadScene(sceneAfterDeath);
     }
 }
