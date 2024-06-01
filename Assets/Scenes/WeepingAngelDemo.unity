@@ -3673,7 +3673,7 @@ Transform:
   m_GameObject: {fileID: 1440014768}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.9999877, z: -0, w: 0.0049668374}
-  m_LocalPosition: {x: 0, y: 1.097, z: 0.948}
+  m_LocalPosition: {x: 0, y: 1.07, z: 0.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5791,7 +5791,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4260148449566732144, guid: d3701811745718047864b81886a47bcf, type: 3}
       propertyPath: jumpscareTime
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4260148449566732144, guid: d3701811745718047864b81886a47bcf, type: 3}
       propertyPath: scareDistance
