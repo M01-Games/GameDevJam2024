@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PickupObject : MonoBehaviour, IInteractable
 {
-    private bool isPickedUp = false;
-    private bool isInspecting = false;
+    public bool isPickedUp = false;
+    public bool isInspecting = false;
     private Transform playerTransform;
     private Vector3 originalPosition;
     private Quaternion originalRotation;
@@ -19,6 +19,7 @@ public class PickupObject : MonoBehaviour, IInteractable
     private FPSController fpsController;
 
     public float rotationSpeed = 500f;
+    public bool isKey = false; // Indicates whether this object is a key
 
     void Start()
     {
@@ -57,7 +58,7 @@ public class PickupObject : MonoBehaviour, IInteractable
         transform.localRotation = Quaternion.identity;
     }
 
-    void Drop()
+    public void Drop()
     {
         isPickedUp = false;
         isInspecting = false;

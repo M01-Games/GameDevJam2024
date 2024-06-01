@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using UnityEngine;
 
 public class Door : MonoBehaviour
 {
     public bool isOpen = false;
+    public bool isLocked = false;
     [SerializeField]
     private bool isRotatingDoor = true;
     [SerializeField]
@@ -14,8 +14,12 @@ public class Door : MonoBehaviour
     private float rotationAmount = 90f;
     [SerializeField]
     private float forwardDirection = 0.0f;
+    [Header("Sliding Configs")]
+    [SerializeField]
+    private float slideAmount = 1.25f;
 
     private Vector3 startRotation;
+    private Vector3 startPosition;
     private Vector3 Forward;
 
     private Coroutine animationCoroutine;
@@ -23,6 +27,7 @@ public class Door : MonoBehaviour
     private void Awake()
     {
         startRotation = transform.rotation.eulerAngles;
+        startPosition = transform.position;
         Forward = transform.right;
     }
 
@@ -30,15 +35,25 @@ public class Door : MonoBehaviour
     {
         if (!isOpen)
         {
+            if (isLocked)
+            {
+                Debug.Log("Door is locked.");
+                return;
+            }
+
             if (animationCoroutine != null)
             {
                 StopCoroutine(animationCoroutine);
             }
 
-            if (isRotatingDoor) 
+            if (isRotatingDoor)
             {
                 float dot = Vector3.Dot(Forward, (userPosition - transform.position).normalized);
                 animationCoroutine = StartCoroutine(DoRotationOpen(dot));
+            }
+            else
+            {
+                animationCoroutine = StartCoroutine(DoSlideOpen());
             }
         }
     }
@@ -60,9 +75,25 @@ public class Door : MonoBehaviour
         isOpen = true;
 
         float time = 0.0f;
-        while (time<1)
+        while (time < 1)
         {
             transform.rotation = Quaternion.Slerp(start, end, time);
+            yield return null;
+            time += Time.deltaTime * speed;
+        }
+    }
+
+    private IEnumerator DoSlideOpen()
+    {
+        Vector3 start = transform.position;
+        Vector3 end = start + new Vector3(-slideAmount, 0, 0); // Slide to the left
+
+        isOpen = true;
+
+        float time = 0.0f;
+        while (time < 1)
+        {
+            transform.position = Vector3.Lerp(start, end, time);
             yield return null;
             time += Time.deltaTime * speed;
         }
@@ -81,6 +112,10 @@ public class Door : MonoBehaviour
             {
                 animationCoroutine = StartCoroutine(DoRotationClose());
             }
+            else
+            {
+                animationCoroutine = StartCoroutine(DoSlideClose());
+            }
         }
     }
 
@@ -92,7 +127,7 @@ public class Door : MonoBehaviour
         isOpen = false;
 
         float time = 0.0f;
-        while (time<1)
+        while (time < 1)
         {
             transform.rotation = Quaternion.Slerp(start, end, time);
             yield return null;
@@ -100,15 +135,33 @@ public class Door : MonoBehaviour
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    private IEnumerator DoSlideClose()
     {
-        
+        Vector3 start = transform.position;
+        Vector3 end = startPosition; // Slide back to the original position
+
+        isOpen = false;
+
+        float time = 0.0f;
+        while (time < 1)
+        {
+            transform.position = Vector3.Lerp(start, end, time);
+            yield return null;
+            time += Time.deltaTime * speed;
+        }
     }
 
-    // Update is called once per frame
+    public void Unlock()
+    {
+        isLocked = false;
+        Debug.Log("Door unlocked.");
+    }
+
+    void Start()
+    {
+    }
+
     void Update()
     {
-        
     }
 }
