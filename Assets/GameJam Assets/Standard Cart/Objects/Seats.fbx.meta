@@ -3,7 +3,17 @@ guid: 5a31509d81bdf0c4194eeee2b3babaf5
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ChairWood
+    second: {fileID: 2100000, guid: 8c65e11d7d45d1740975a2508fae02b6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Train Seat Cushions
+    second: {fileID: 2100000, guid: 0becb74f7c5069a41a362ce1dd1a15ab, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

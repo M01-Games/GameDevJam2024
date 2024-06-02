@@ -3,7 +3,27 @@ guid: ae88dae8c1b3edf47ae59576a1095713
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Curtains
+    second: {fileID: 2100000, guid: c0fd7fe4f846fb94c9a58e339630ba06, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Interior Wall
+    second: {fileID: 2100000, guid: 5ca13b06930677b40952513ed6e14f32, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material.004
+    second: {fileID: 2100000, guid: f15de624e9a2691428342f5303a76452, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Wall Panels
+    second: {fileID: 2100000, guid: 49d772649ea0bfb449db3856f4bf9523, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

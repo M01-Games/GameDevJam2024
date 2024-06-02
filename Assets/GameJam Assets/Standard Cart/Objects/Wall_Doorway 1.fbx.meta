@@ -3,7 +3,22 @@ guid: 2faf7ab4b0fd073428f29dca9becccd2
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Black Frames
+    second: {fileID: 2100000, guid: 04aedea3eb60a604b8a4115617a59ae9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Interior Wall
+    second: {fileID: 2100000, guid: 2ca3aa291133984469b93bd5ea1bee8f, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material
+    second: {fileID: 2100000, guid: 7f445e3d580b97b4c9a8177b514c17dc, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
