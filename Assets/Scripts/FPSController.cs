@@ -21,6 +21,7 @@ public class FPSController : MonoBehaviour
     public float crouchHeight = 1f;
     private float normalHeight;
     private bool isCrouching = false;
+    public bool isMoving;
 
     float rotationX = 0f;
     public bool canMove = true;
@@ -28,6 +29,7 @@ public class FPSController : MonoBehaviour
     Vector3 moveDirection = Vector3.zero;
 
     CharacterController controller;
+    public Animator animator; // Reference to the Animator component
 
     void Start()
     {
@@ -45,6 +47,7 @@ public class FPSController : MonoBehaviour
             HandleMovement();
             HandleMouseLook();
             HandleCrouch();
+            UpdateAnimator();
         }
         else
         {
@@ -96,8 +99,16 @@ public class FPSController : MonoBehaviour
 
     private void UpdateCameraFOV(bool isRunning, float curSpeedX, float curSpeedY)
     {
-        bool isMoving = curSpeedX != 0 || curSpeedY != 0;
+        isMoving = curSpeedX != 0 || curSpeedY != 0;
         float targetFOV = (isRunning && isMoving) ? sprintFOV : normalFOV;
         playerCamera.fieldOfView = Mathf.Lerp(playerCamera.fieldOfView, targetFOV, fovTransitionSpeed * Time.deltaTime);
+    }
+
+    private void UpdateAnimator()
+    {
+        if (animator != null)
+        {
+            animator.SetBool("isWalking", isMoving);
+        }
     }
 }
