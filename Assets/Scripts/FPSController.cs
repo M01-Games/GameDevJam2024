@@ -31,6 +31,8 @@ public class FPSController : MonoBehaviour
     CharacterController controller;
     public Animator animator; // Reference to the Animator component
 
+    public AudioSource footStepSound, runningSound, crouchingSound;
+
     void Start()
     {
         controller = GetComponent<CharacterController>();
@@ -78,6 +80,33 @@ public class FPSController : MonoBehaviour
         controller.Move(moveDirection * Time.deltaTime);
 
         UpdateCameraFOV(isRunning, curSpeedX, curSpeedY);
+
+        if (isMoving)
+        {
+            footStepSound.enabled = true;
+        }
+        else
+        {
+            footStepSound.enabled = false;
+        }
+
+        if (isRunning)
+        {
+            runningSound.enabled = true;
+        }
+        else
+        {
+            runningSound.enabled = false;
+        }
+
+        if (isCrouching)
+        {
+            crouchingSound.enabled = true;
+        }
+        else
+        {
+            crouchingSound.enabled = false;
+        }
     }
 
     private void HandleMouseLook()
