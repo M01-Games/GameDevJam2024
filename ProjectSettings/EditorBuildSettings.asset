@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/WeepingAngelDemo.unity
-    guid: 88ecb2b1bccf91647bd9dbdead38ed2b
+    path: Assets/Scenes/TEST.unity
+    guid: 64aa9eeaa78b9d94d8fe81bf0a60d020
   m_configObjects: {}
