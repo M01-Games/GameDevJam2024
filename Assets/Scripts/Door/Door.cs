@@ -7,6 +7,8 @@ public class Door : MonoBehaviour
     public bool isOpen = false;
     public bool isLocked = false;
     public bool isMoving = false;
+    public bool openOnlyOnce = false; // New variable to control if the door can be opened only once
+
     [SerializeField]
     private bool isRotatingDoor = true;
     [SerializeField]
@@ -34,7 +36,7 @@ public class Door : MonoBehaviour
 
     public void Open(Vector3 userPosition)
     {
-        if (!isOpen)
+        if ((openOnlyOnce && !isOpen) || !openOnlyOnce)
         {
             if (isLocked)
             {
@@ -54,7 +56,7 @@ public class Door : MonoBehaviour
             }
             else
             {
-                if (!isMoving) 
+                if (!isMoving)
                 {
                     isMoving = true;
                     animationCoroutine = StartCoroutine(DoSlideOpen());
@@ -126,6 +128,9 @@ public class Door : MonoBehaviour
                     animationCoroutine = StartCoroutine(DoSlideClose());
                 }
             }
+
+            if (openOnlyOnce)
+                isLocked = true;
         }
     }
 
