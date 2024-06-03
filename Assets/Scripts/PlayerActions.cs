@@ -16,6 +16,24 @@ public class PlayerActions : MonoBehaviour
 
     private PickupObject heldKey = null; // Store the currently held key
 
+    private void OnEnable()
+    {
+        PickupObject.OnObjectDropped += HandleObjectDropped;
+    }
+
+    private void OnDisable()
+    {
+        PickupObject.OnObjectDropped -= HandleObjectDropped;
+    }
+
+    private void HandleObjectDropped(PickupObject obj)
+    {
+        if (obj == heldKey)
+        {
+            heldKey = null;
+        }
+    }
+
     public void OnUse()
     {
         if (Physics.Raycast(camera.position, camera.forward, out RaycastHit hit, maxUseDistance, useLayers))
