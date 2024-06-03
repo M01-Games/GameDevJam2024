@@ -6,6 +6,7 @@ public class Door : MonoBehaviour
 {
     public bool isOpen = false;
     public bool isLocked = false;
+    public bool isMoving = false;
     [SerializeField]
     private bool isRotatingDoor = true;
     [SerializeField]
@@ -53,7 +54,11 @@ public class Door : MonoBehaviour
             }
             else
             {
-                animationCoroutine = StartCoroutine(DoSlideOpen());
+                if (!isMoving) 
+                {
+                    isMoving = true;
+                    animationCoroutine = StartCoroutine(DoSlideOpen());
+                }
             }
         }
     }
@@ -97,6 +102,7 @@ public class Door : MonoBehaviour
             yield return null;
             time += Time.deltaTime * speed;
         }
+        isMoving = false;
     }
 
     public void Close()
@@ -114,7 +120,11 @@ public class Door : MonoBehaviour
             }
             else
             {
-                animationCoroutine = StartCoroutine(DoSlideClose());
+                if (!isMoving)
+                {
+                    isMoving = true;
+                    animationCoroutine = StartCoroutine(DoSlideClose());
+                }
             }
         }
     }
@@ -149,6 +159,7 @@ public class Door : MonoBehaviour
             yield return null;
             time += Time.deltaTime * speed;
         }
+        isMoving = false;
     }
 
     public void Unlock()

@@ -55,17 +55,20 @@ public class PlayerActions : MonoBehaviour
                     }
                 }
 
-                if (door.isOpen)
+                if (!door.isMoving)
                 {
-                    Debug.Log("Door closing");
-                    door.Close();
-                    Debug.Log("Door closed");
-                }
-                else
-                {
-                    Debug.Log("Door opening");
-                    door.Open(transform.position);
-                    Debug.Log("Door opened");
+                    if (door.isOpen)
+                    {
+                        Debug.Log("Door closing");
+                        door.Close();
+                        Debug.Log("Door closed");
+                    }
+                    else
+                    {
+                        Debug.Log("Door opening");
+                        door.Open(transform.position);
+                        Debug.Log("Door opened");
+                    }
                 }
             }
         }
