@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PickupObject : MonoBehaviour, IInteractable
 {
+    public static PickupObject currentlyHeldObject = null;
+
     public bool isPickedUp = false;
     public bool isInspecting = false;
     private Transform playerTransform;
@@ -21,6 +23,13 @@ public class PickupObject : MonoBehaviour, IInteractable
     public float rotationSpeed = 500f;
     public bool isKey = false; // Indicates whether this object is a key
 
+    private bool canInteract = true; // To manage interaction cooldown
+    public float interactCooldown = 0.5f; // Cooldown duration
+
+    // Event to notify when the object is dropped
+    public delegate void ObjectDropped(PickupObject obj);
+    public static event ObjectDropped OnObjectDropped;
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -29,14 +38,25 @@ public class PickupObject : MonoBehaviour, IInteractable
 
     public void Interact()
     {
+        if (!canInteract) return; // Prevent interaction if cooldown is active
+
         if (isPickedUp)
         {
             Drop();
         }
-        else
+        else if (currentlyHeldObject == null)
         {
             PickUp();
         }
+
+        StartCoroutine(InteractionCooldown());
+    }
+
+    IEnumerator InteractionCooldown()
+    {
+        canInteract = false;
+        yield return new WaitForSeconds(interactCooldown);
+        canInteract = true;
     }
 
     void PickUp()
@@ -56,6 +76,8 @@ public class PickupObject : MonoBehaviour, IInteractable
         transform.SetParent(holdParent);
         transform.localPosition = Vector3.zero;
         transform.localRotation = Quaternion.identity;
+
+        currentlyHeldObject = this;
     }
 
     public void Drop()
@@ -74,13 +96,18 @@ public class PickupObject : MonoBehaviour, IInteractable
         {
             fpsController.canMove = true;
         }
+
+        currentlyHeldObject = null;
+
+        // Notify that the object is dropped
+        OnObjectDropped?.Invoke(this);
     }
 
     void Update()
     {
         if (isPickedUp)
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            if (Input.GetKeyDown(KeyCode.E) && canInteract)
             {
                 Drop();
             }
