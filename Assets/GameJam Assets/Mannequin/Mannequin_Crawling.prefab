@@ -746,7 +746,7 @@ GameObject:
   - component: {fileID: 1962022317038318678}
   - component: {fileID: 8933548422802148734}
   m_Layer: 0
-  m_Name: Mannequin
+  m_Name: Mannequin_Crawling
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -780,7 +780,7 @@ Animator:
   m_GameObject: {fileID: 3179049861299133310}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 323df2b8ad17be74989bd80192968c95, type: 3}
-  m_Controller: {fileID: 9100000, guid: d358ef4cd7a100843b709341805bfed9, type: 2}
+  m_Controller: {fileID: 9100000, guid: 5e78487a003436046aec4ba75b833e09, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1584,7 +1584,7 @@ GameObject:
   - component: {fileID: 269356572689447742}
   - component: {fileID: 4139344993474598336}
   m_Layer: 0
-  m_Name: Ch36
+  m_Name: ManniCrawl
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
