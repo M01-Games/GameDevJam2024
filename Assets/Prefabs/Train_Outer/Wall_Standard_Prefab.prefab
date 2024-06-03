@@ -10,35 +10,35 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 22b6eb7cdbbb7d44fad692ca7408d30e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -8.515
+      value: -1.6811409
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 22b6eb7cdbbb7d44fad692ca7408d30e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.00000020861626
+      value: 0.0000014305115
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 22b6eb7cdbbb7d44fad692ca7408d30e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.42
+      value: 7.0040026
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 22b6eb7cdbbb7d44fad692ca7408d30e, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.5
+      value: 0.50000006
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 22b6eb7cdbbb7d44fad692ca7408d30e, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.5
+      value: -0.5000003
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 22b6eb7cdbbb7d44fad692ca7408d30e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.49999997
+      value: 0.49999994
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 22b6eb7cdbbb7d44fad692ca7408d30e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.5
+      value: 0.49999982
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 22b6eb7cdbbb7d44fad692ca7408d30e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 22b6eb7cdbbb7d44fad692ca7408d30e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -46,12 +46,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 22b6eb7cdbbb7d44fad692ca7408d30e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -270
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 22b6eb7cdbbb7d44fad692ca7408d30e, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 59a3c31823fe14842b342c53dfc1675b, type: 2}
+      objectReference: {fileID: 2100000, guid: f8227b7662e1a684a8a74ba87e3f34e9, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 22b6eb7cdbbb7d44fad692ca7408d30e, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: f8227b7662e1a684a8a74ba87e3f34e9, type: 2}
     - target: {fileID: 919132149155446097, guid: 22b6eb7cdbbb7d44fad692ca7408d30e, type: 3}
       propertyPath: m_Name
       value: Wall_Standard_Prefab
@@ -59,5 +63,34 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 22b6eb7cdbbb7d44fad692ca7408d30e, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2984990072142034192}
   m_SourcePrefab: {fileID: 100100000, guid: 22b6eb7cdbbb7d44fad692ca7408d30e, type: 3}
+--- !u!1 &1574056941434643990 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 22b6eb7cdbbb7d44fad692ca7408d30e, type: 3}
+  m_PrefabInstance: {fileID: 1808553292662184775}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &2984990072142034192
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574056941434643990}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.02, y: 0.0013999939, z: 0.024}
+  m_Center: {x: 0, y: -1.7053026e-16, z: 0.012}
