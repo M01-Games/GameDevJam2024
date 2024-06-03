@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 0ce2ff4acee0b80499f33435e957245e
+guid: da54225836b1c5842b9df3dcdece61fb
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -8,22 +8,37 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Curtains
-    second: {fileID: 2100000, guid: 9eec8b3d0f7b5f54c80784a0448bd134, type: 2}
+    second: {fileID: 2100000, guid: 79340e14a6b71b341bfd98132ae619d1, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Interior Wall
-    second: {fileID: 2100000, guid: 38c74125c67a71c49b71e4b2d9c07f8d, type: 2}
+    second: {fileID: 2100000, guid: 2b32decd9da473647b81d443205316ea, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Material.004
-    second: {fileID: 2100000, guid: 06db4af0183d2c54bab45b8e1725ef0c, type: 2}
+    second: {fileID: 2100000, guid: db1adfef1b26c6b49b518c5bafd1ca51, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Wall Panels
-    second: {fileID: 2100000, guid: 2653ea0efe63c8f43b672d6b8d46a705, type: 2}
+    second: {fileID: 2100000, guid: 90f0a8c620764734f9bd00e0f176fe46, type: 2}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Wall_Window_3_Diffuse
+    second: {fileID: 2800000, guid: 1933a66a201c7794ba70a80fd8d975ce, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Wall_Window_3_Normals
+    second: {fileID: 2800000, guid: 721a06bfab295e94d993530a64051dd8, type: 3}
+  - first:
+      type: UnityEngine:Texture2D
+      assembly: UnityEngine.CoreModule
+      name: Wall_Window_3_Roughness
+    second: {fileID: 2800000, guid: 4a5864c58d60238488934b5dc15f9797, type: 3}
   materials:
     materialImportMode: 2
     materialName: 0
